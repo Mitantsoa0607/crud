@@ -1,0 +1,37 @@
+{% extends 'crud/base.html'%}
+{%block title%}Home{%endblock title%}
+{% block content%}
+<div class="container mt-5">
+    <table class="table">
+        <thead>
+            <tr class=" text-center">
+                <th class="col">ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr class="text-center">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td><a href="{% url 'edit' user.pk %}" class="btn btn-primary">edit</a></td>
+                <td>
+                    <form action="{% url 'delete' user.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger" name="delete" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="mt-4">
+        <h2>Create an User :</h2>
+        <p>Click the button below to access the page to create an user</p>
+        <a href="create" class="btn btn-primary">Create</a>
+    </div>
+</div>
+{% endblock content%}
